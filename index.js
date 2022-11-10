@@ -28,7 +28,7 @@ async function run(){
             const result = await addServicesCollection.insertOne(user)
             res.send(result)
         });
-        app.get('/addServices',async(req,res)=>{
+        app.get('/addServices', async(req,res)=>{
             const query = {}
             const cursor = addServicesCollection.find(query)
             const result = await cursor.toArray()
