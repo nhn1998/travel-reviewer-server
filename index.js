@@ -16,12 +16,24 @@ async function run(){
     try{
         const servicesCollection = client.db('serviceReview').collection('services');
         const reviewCollection = client.db('serviceReview').collection('review')
+        const addServicesCollection = client.db('serviceReview').collection('addServices')
         app.post('/users',async(req,res)=>{
             const user = req.body;
             console.log(user)
             const result = await reviewCollection.insertOne(user)
             res.send(result)
         });
+        app.post('/addServices',async(req,res)=>{
+            const user = req.body;
+            const result = await addServicesCollection.insertOne(user)
+            res.send(result)
+        });
+        app.get('/addServices',async(req,res)=>{
+            const query = {}
+            const cursor = addServicesCollection.find(query)
+            const result = await cursor.toArray()
+            res.send(result)
+        })
         app.delete('/users/:id',async(req,res)=>{
             const id = req.params.id;
             const query = {_id:ObjectId(id)}
